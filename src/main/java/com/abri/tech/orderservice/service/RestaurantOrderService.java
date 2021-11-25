@@ -20,7 +20,6 @@ public class RestaurantOrderService {
     public RestaurantOrder saveOrder(RestaurantOrder restaurantOrder){
 
         var order = new Order();
-        //RestaurantOrder.java  ->  Order.java
         BeanUtils.copyProperties(restaurantOrder,order);
         var savedOrder = restaurantOrderRepo.save(order);
 
