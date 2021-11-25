@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,4 +23,7 @@ public interface OrderApi {
             @ApiResponse(code= 200, message = "OK", response = String.class)})
     @PostMapping("/createOrder")
     ResponseEntity<OrderResponse> createNewOrder(@RequestBody RestaurantOrder restaurantOrder);
+
+    @GetMapping("/getAllOrder")
+    ResponseEntity<OrderResponse> getAllOrder();
 }
