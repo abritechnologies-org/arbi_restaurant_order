@@ -22,5 +22,4 @@ public interface OrderApi {
             @ApiResponse(code= 200, message = "OK", response = String.class)})
     @PostMapping("/createOrder")
     ResponseEntity<OrderResponse> createNewOrder(@RequestBody RestaurantOrder restaurantOrder);
-
 }
