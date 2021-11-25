@@ -2,13 +2,13 @@ package com.abri.tech.orderservice.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 @Setter
 @Getter
 @ApiModel(description = "The restaurant order")
+@AllArgsConstructor
+@NoArgsConstructor
 public class RestaurantOrder {
 
     @NonNull
