@@ -21,6 +21,8 @@ public class OrderController implements OrderApi {
 
     public ResponseEntity<OrderResponse> createNewOrder(@RequestBody RestaurantOrder restaurantOrder) {
         restaurantOrderService.saveOrder(restaurantOrder);
+
+
         var orderResponse = OrderResponse.builder()
                 .orderId(123)
                 .orderDetails("Veg Burger Spicy")
