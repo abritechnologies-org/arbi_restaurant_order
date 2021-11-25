@@ -27,7 +27,7 @@ public class RestaurantOrderService {
         var orderResponse = new OrderResponse();
         orderResponse.setOrderId(savedOrder.getId());
         orderResponse.setOrderDetails("Hi " + restaurantOrder.getCustomerName().toUpperCase()+
-                "your order for " +savedOrder.getMenuName()+ " will be delivered in 30 minutes");
+                " your order for " +savedOrder.getMenuName()+ " will be delivered in 30 minutes");
         return orderResponse;
     }
 }
