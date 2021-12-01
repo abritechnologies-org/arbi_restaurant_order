@@ -38,7 +38,6 @@ public class RestaurantOrderService {
     }
 
     public List<OrderDetailsResponse> getAllOrders(){
-
         var allOrders = restaurantOrderRepo.findAll();
         log.info("Received order details for {} orders",allOrders.size());
         return allOrders.stream().map(order -> {
