@@ -1,7 +1,7 @@
 package com.abri.tech.orderservice.controller;
 
 import com.abri.tech.orderservice.dto.RestaurantOrder;
-import com.abri.tech.orderservice.entity.Order;
+import com.abri.tech.orderservice.response.OrderDetailsResponse;
 import com.abri.tech.orderservice.response.OrderResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,6 +27,9 @@ public interface OrderApi {
     @PostMapping("/createOrder")
     ResponseEntity<OrderResponse> createNewOrder(@RequestBody RestaurantOrder restaurantOrder);
 
+    @ApiOperation(value = "Get all orders placed in the restaurant")
+    @ApiResponses(value = {@ApiResponse(code= 500, message = "Internal Server Error"),
+            @ApiResponse(code= 200, message = "OK")})
     @GetMapping("/getAllOrder")
-    List<Order> getAllOrder();
+    ResponseEntity<List<OrderDetailsResponse>> getAllOrder();
 }

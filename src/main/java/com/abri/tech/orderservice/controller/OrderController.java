@@ -1,7 +1,7 @@
 package com.abri.tech.orderservice.controller;
 
 import com.abri.tech.orderservice.dto.RestaurantOrder;
-import com.abri.tech.orderservice.entity.Order;
+import com.abri.tech.orderservice.response.OrderDetailsResponse;
 import com.abri.tech.orderservice.response.OrderResponse;
 import com.abri.tech.orderservice.service.RestaurantOrderService;
 import lombok.AllArgsConstructor;
@@ -35,9 +35,9 @@ public class OrderController implements OrderApi {
     }
 
     @Override
-    public List<Order> getAllOrder() {
-        List<Order> allOrders = restaurantOrderService.getAllOrders();
-        return allOrders;
+    public ResponseEntity<List<OrderDetailsResponse>> getAllOrder() {
+        var allOrders = restaurantOrderService.getAllOrders();
+        return ResponseEntity.status(HttpStatus.OK).body(allOrders);
     }
 
 }
