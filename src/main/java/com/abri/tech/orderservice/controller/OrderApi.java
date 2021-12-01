@@ -1,6 +1,7 @@
 package com.abri.tech.orderservice.controller;
 
 import com.abri.tech.orderservice.dto.RestaurantOrder;
+import com.abri.tech.orderservice.entity.Order;
 import com.abri.tech.orderservice.response.OrderResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 
 @RequestMapping("/restaurant/v2")
@@ -25,5 +28,5 @@ public interface OrderApi {
     ResponseEntity<OrderResponse> createNewOrder(@RequestBody RestaurantOrder restaurantOrder);
 
     @GetMapping("/getAllOrder")
-    ResponseEntity<OrderResponse> getAllOrder();
+    List<Order> getAllOrder();
 }

@@ -1,6 +1,7 @@
 package com.abri.tech.orderservice.controller;
 
 import com.abri.tech.orderservice.dto.RestaurantOrder;
+import com.abri.tech.orderservice.entity.Order;
 import com.abri.tech.orderservice.response.OrderResponse;
 import com.abri.tech.orderservice.service.RestaurantOrderService;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -29,6 +32,12 @@ public class OrderController implements OrderApi {
 
         var orderResponse = restaurantOrderService.saveOrder(restaurantOrder);
         return ResponseEntity.status(HttpStatus.OK).body(orderResponse);
+    }
+
+    @Override
+    public List<Order> getAllOrder() {
+        List<Order> allOrders = restaurantOrderService.getAllOrders();
+        return allOrders;
     }
 
 }

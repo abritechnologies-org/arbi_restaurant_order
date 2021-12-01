@@ -10,6 +10,8 @@ import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @AllArgsConstructor
 @Setter
 @Getter
@@ -29,5 +31,10 @@ public class RestaurantOrderService {
         orderResponse.setOrderDetails("Hi " + restaurantOrder.getCustomerName().toUpperCase()+
                 ", your order for " +savedOrder.getMenuName()+ " will be delivered in 30 minutes");
         return orderResponse;
+    }
+
+    public List<Order> getAllOrders(){
+        List<Order> allOrders = restaurantOrderRepo.findAll();
+        return allOrders;
     }
 }
