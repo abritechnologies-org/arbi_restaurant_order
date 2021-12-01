@@ -8,16 +8,18 @@ import com.abri.tech.orderservice.response.OrderResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Setter
 @Getter
 @Service
+@Slf4j
 public class RestaurantOrderService {
 
     private RestaurantOrderRepo restaurantOrderRepo;
@@ -36,14 +38,14 @@ public class RestaurantOrderService {
     }
 
     public List<OrderDetailsResponse> getAllOrders(){
+
         var allOrders = restaurantOrderRepo.findAll();
-        var orderResponseLst = new ArrayList<OrderDetailsResponse>();
-        for(Order order: allOrders){
-            OrderDetailsResponse orderResponse = new OrderDetailsResponse();
-            orderResponse.setCustomerName(order.getCustomerName());
-            orderResponse.setMenuName(order.getMenuName());
-            orderResponseLst.add(orderResponse);
-        }
-        return orderResponseLst;
+        log.info("Received order details for {} orders",allOrders.size());
+        return allOrders.stream().map(order -> {
+            var orderDetailsResponse = new OrderDetailsResponse();
+            BeanUtils.copyProperties(order,orderDetailsResponse);
+            return orderDetailsResponse;
+        }).collect(Collectors.toList());
+
     }
 }
