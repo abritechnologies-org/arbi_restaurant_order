@@ -39,12 +39,24 @@ public class RestaurantOrderService {
 
     public List<OrderDetailsResponse> getAllOrders(){
         var allOrders = restaurantOrderRepo.findAll();
-        log.info("Received order details for {} orders",allOrders.size());
-        return allOrders.stream().map(order -> {
-            var orderDetailsResponse = new OrderDetailsResponse();
-            BeanUtils.copyProperties(order,orderDetailsResponse);
-            return orderDetailsResponse;
-        }).collect(Collectors.toList());
+        return getOrderDetailsResponseList(allOrders);
 
     }
+
+
+    public List<OrderDetailsResponse> getOrderForCustomer(String customerName){
+        var allOrders = restaurantOrderRepo.findOrderByCustomerName(customerName);
+        return getOrderDetailsResponseList(allOrders);
+    }
+
+    private List<OrderDetailsResponse> getOrderDetailsResponseList(List<Order> allOrders) {
+        log.info("Received order details for {} orders", allOrders.size());
+        return allOrders.stream().map(order -> {
+            var orderDetailsResponse = new OrderDetailsResponse();
+            BeanUtils.copyProperties(order, orderDetailsResponse);
+            return orderDetailsResponse;
+        }).collect(Collectors.toList());
+    }
+
+
 }

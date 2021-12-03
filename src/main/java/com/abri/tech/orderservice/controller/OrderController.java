@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -34,10 +35,17 @@ public class OrderController implements OrderApi {
         return ResponseEntity.status(HttpStatus.OK).body(orderResponse);
     }
 
-    @Override
+
     public ResponseEntity<List<OrderDetailsResponse>> getAllOrder() {
         var allOrders = restaurantOrderService.getAllOrders();
         return ResponseEntity.status(HttpStatus.OK).body(allOrders);
+    }
+
+
+    public ResponseEntity<List<OrderDetailsResponse>> getOrder(@RequestParam(value="consumerName") String consumerName) {
+        log.info("Restaurant Order for Customer Name {}", consumerName);
+        var allOrders = restaurantOrderService.getOrderForCustomer(consumerName);
+        return  ResponseEntity.status(HttpStatus.OK).body(allOrders);
     }
 
 }
