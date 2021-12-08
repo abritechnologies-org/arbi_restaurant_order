@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,9 +41,13 @@ public class OrderController implements OrderApi {
     }
 
 
-    public ResponseEntity<RestaurantResponse> getOrder(@RequestParam(value="consumerName") String consumerName) {
-        log.info("Restaurant Order for Customer Name {}", consumerName);
-        var restaurantResponse = restaurantOrderService.getOrderForCustomer(consumerName);
+    public ResponseEntity<RestaurantResponse> getOrder(@RequestParam(value= "customerName") String customerName) {
+        if (StringUtils.isEmpty(customerName)){
+            log.info("Customer name is empty");
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        log.info("Customer name is : {}", customerName);
+        var restaurantResponse = restaurantOrderService.getOrderForCustomer(customerName);
         return  ResponseEntity.status(HttpStatus.OK).body(restaurantResponse);
     }
 

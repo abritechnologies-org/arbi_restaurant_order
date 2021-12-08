@@ -29,7 +29,7 @@ public interface OrderApi {
     @ApiResponses(value = {@ApiResponse(code= 500, message = "Internal Server Error"),
             @ApiResponse(code= 200, message = "OK")})
     @GetMapping("/getOrder")
-    public ResponseEntity<RestaurantResponse> getOrder(
+    ResponseEntity<RestaurantResponse> getOrder(
             @ApiParam(value = "Customer name who placed the order", type = "String", required = true)
-            @RequestParam(value="consumerName") String consumerName);
+            @RequestParam(value= "customerName") String customerName);
 }
