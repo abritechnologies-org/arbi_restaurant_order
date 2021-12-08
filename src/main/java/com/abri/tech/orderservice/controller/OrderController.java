@@ -1,19 +1,19 @@
 package com.abri.tech.orderservice.controller;
 
 import com.abri.tech.orderservice.dto.RestaurantOrder;
-import com.abri.tech.orderservice.response.OrderDetailsResponse;
 import com.abri.tech.orderservice.response.OrderResponse;
+import com.abri.tech.orderservice.response.RestaurantResponse;
 import com.abri.tech.orderservice.service.RestaurantOrderService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -34,10 +34,21 @@ public class OrderController implements OrderApi {
         return ResponseEntity.status(HttpStatus.OK).body(orderResponse);
     }
 
-    @Override
-    public ResponseEntity<List<OrderDetailsResponse>> getAllOrder() {
-        var allOrders = restaurantOrderService.getAllOrders();
-        return ResponseEntity.status(HttpStatus.OK).body(allOrders);
+
+    public ResponseEntity<RestaurantResponse> getAllOrder() {
+        var restaurantResponse = restaurantOrderService.getAllOrders();
+        return ResponseEntity.status(HttpStatus.OK).body(restaurantResponse);
+    }
+
+
+    public ResponseEntity<RestaurantResponse> getOrder(@RequestParam(value= "customerName") String customerName) {
+        if (StringUtils.isEmpty(customerName)){
+            log.info("Customer name is empty");
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        log.info("Customer name is : {}", customerName);
+        var restaurantResponse = restaurantOrderService.getOrderForCustomer(customerName);
+        return  ResponseEntity.status(HttpStatus.OK).body(restaurantResponse);
     }
 
 }
