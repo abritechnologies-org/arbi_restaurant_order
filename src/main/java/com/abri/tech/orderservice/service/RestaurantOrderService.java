@@ -5,6 +5,7 @@ import com.abri.tech.orderservice.entity.Order;
 import com.abri.tech.orderservice.repo.RestaurantOrderRepo;
 import com.abri.tech.orderservice.response.OrderDetailsResponse;
 import com.abri.tech.orderservice.response.OrderResponse;
+import com.abri.tech.orderservice.response.RestaurantResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,16 +38,39 @@ public class RestaurantOrderService {
         return orderResponse;
     }
 
-    public List<OrderDetailsResponse> getAllOrders(){
+    public RestaurantResponse getAllOrders(){
         var allOrders = restaurantOrderRepo.findAll();
-        return getOrderDetailsResponseList(allOrders);
+        var msg = allOrders.size() > 0 ?
+                "Successfully retrieve order details , total order : "+allOrders.size():
+                "No order found ";
+        var resResponse = buildResponse(allOrders,msg);
+        return resResponse;
 
     }
 
-
-    public List<OrderDetailsResponse> getOrderForCustomer(String customerName){
+    public RestaurantResponse getOrderForCustomer(String customerName){
         var allOrders = restaurantOrderRepo.findOrderByCustomerName(customerName);
-        return getOrderDetailsResponseList(allOrders);
+        var msg = allOrders.size() > 0 ?
+                "Successfully retrieve order details , total order : "+allOrders.size():
+                "No order found for the customer :"+customerName;
+        var resResponse = buildResponse(allOrders,msg);
+        return resResponse;
+    }
+
+    private RestaurantResponse buildResponse(List<Order> allOrders, String msg){
+        log.info("Total order {}",allOrders.size());
+        if(allOrders.size() > 0){
+            var orderDetailsList = getOrderDetailsResponseList(allOrders);
+            var restaurantResponse = RestaurantResponse.builder()
+                    .message(msg)
+                    .orderDetailsResponse(orderDetailsList)
+                    .build();
+            return restaurantResponse;
+        }else{
+            return RestaurantResponse.builder()
+                    .message(msg)
+                    .build();
+        }
     }
 
     private List<OrderDetailsResponse> getOrderDetailsResponseList(List<Order> allOrders) {
