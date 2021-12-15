@@ -15,4 +15,6 @@ public class RestaurantResponse {
     private String message;
     @ApiModelProperty(notes = "All the orders placed by the customer")
     private List<OrderDetailsResponse> orderDetailsResponse;
+    @ApiModelProperty(notes = "Order updated or deleted by customer")
+    private OrderResponse orderDetails;
 }

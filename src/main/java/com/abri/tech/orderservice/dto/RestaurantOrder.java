@@ -12,6 +12,9 @@ import lombok.*;
 public class RestaurantOrder {
 
     @NonNull
+    @ApiModelProperty(notes = "Order Id")
+    private String orderId;
+    @NonNull
     @ApiModelProperty(notes = "Customer  Name")
     private String customerName;
     @NonNull

@@ -57,6 +57,31 @@ public class RestaurantOrderService {
         return resResponse;
     }
 
+    public RestaurantResponse modifyOrder(RestaurantOrder restaurantOrder) {
+
+        var orderOptional = restaurantOrderRepo.findById(Long.valueOf(restaurantOrder.getOrderId()));
+        if(orderOptional.isEmpty()){
+            log.info("No order found for order is {} ",restaurantOrder.getOrderId());
+            return RestaurantResponse.builder()
+                    .message("No order found for orderId : "+restaurantOrder.getOrderId())
+                    .build();
+        }
+        var order = orderOptional.get();
+        order.setMenuName(restaurantOrder.getMenuName());
+        var savedOrder = restaurantOrderRepo.save(order);
+
+        var orderResponse = new OrderResponse();
+        orderResponse.setOrderId(savedOrder.getId());
+        orderResponse.setOrderDetails("Hi " + restaurantOrder.getCustomerName().toUpperCase()+
+                ", your order for " +savedOrder.getMenuName()+ " will be delivered in 30 minutes");
+
+       return RestaurantResponse.builder()
+                .message("Order is updated successfully")
+                .orderDetails(orderResponse)
+                .build();
+
+    }
+
     private RestaurantResponse buildResponse(List<Order> allOrders, String msg){
         log.info("Total order {}",allOrders.size());
         if(allOrders.size() > 0){
@@ -81,6 +106,5 @@ public class RestaurantOrderService {
             return orderDetailsResponse;
         }).collect(Collectors.toList());
     }
-
 
 }
