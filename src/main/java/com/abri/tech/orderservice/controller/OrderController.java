@@ -51,4 +51,23 @@ public class OrderController implements OrderApi {
         return  ResponseEntity.status(HttpStatus.OK).body(restaurantResponse);
     }
 
+    @Override
+    public ResponseEntity<RestaurantResponse> modifyOrder(RestaurantOrder restaurantOrder) {
+
+        log.info("We received modify order from {} for {} ",
+                restaurantOrder.getCustomerName(),
+                restaurantOrder.getMenuName());
+
+        if (StringUtils.isEmpty(restaurantOrder.getOrderId())){
+            log.info("No order id provided");
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        if (StringUtils.isEmpty(restaurantOrder.getMenuName())){
+            log.info("Menu is not provided");
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        var orderResponse =restaurantOrderService.modifyOrder(restaurantOrder);
+        return  ResponseEntity.status(HttpStatus.OK).body(orderResponse);
+    }
+
 }
