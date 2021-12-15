@@ -81,6 +81,21 @@ public class RestaurantOrderService {
                 .build();
 
     }
+    public RestaurantResponse deleteOrder(RestaurantOrder restaurantOrder) {
+        var orderOptional = restaurantOrderRepo.findById(Long.valueOf(restaurantOrder.getOrderId()));
+        if(orderOptional.isEmpty()){
+            log.info("No order found for order is {} ",restaurantOrder.getOrderId());
+            return RestaurantResponse.builder()
+                    .message("No order found for orderId : "+restaurantOrder.getOrderId())
+                    .build();
+        }
+        var order = orderOptional.get();
+        restaurantOrderRepo.delete(order);
+
+        return RestaurantResponse.builder()
+                .message("Order is cancelled successfully")
+                .build();
+    }
 
     private RestaurantResponse buildResponse(List<Order> allOrders, String msg){
         log.info("Total order {}",allOrders.size());

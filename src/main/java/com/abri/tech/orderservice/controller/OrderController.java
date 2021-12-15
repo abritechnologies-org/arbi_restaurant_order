@@ -70,4 +70,10 @@ public class OrderController implements OrderApi {
         return  ResponseEntity.status(HttpStatus.OK).body(orderResponse);
     }
 
+    @Override
+    public ResponseEntity<RestaurantResponse> deleteOrder(RestaurantOrder restaurantOrder) {
+        var orderResponse= restaurantOrderService.deleteOrder(restaurantOrder);
+        return ResponseEntity.status(HttpStatus.OK).body(orderResponse);
+    }
+
 }
