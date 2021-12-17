@@ -51,7 +51,7 @@ public class OrderController implements OrderApi {
         return  ResponseEntity.status(HttpStatus.OK).body(restaurantResponse);
     }
 
-    @Override
+    
     public ResponseEntity<RestaurantResponse> modifyOrder(RestaurantOrder restaurantOrder) {
 
         log.info("We received modify order from {} for {} ",
@@ -70,7 +70,6 @@ public class OrderController implements OrderApi {
         return  ResponseEntity.status(HttpStatus.OK).body(orderResponse);
     }
 
-    @Override
     public ResponseEntity<String> deleteOrder(String orderId) {
 
         log.info("We received request to delete order {} ",orderId);
@@ -81,6 +80,8 @@ public class OrderController implements OrderApi {
         }
         var response = restaurantOrderService.deleteOrder(Long.valueOf(orderId));
         return  ResponseEntity.status(HttpStatus.OK).body(response);
+
+   
     }
 
 }
