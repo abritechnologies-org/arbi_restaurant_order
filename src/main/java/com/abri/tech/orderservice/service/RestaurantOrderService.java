@@ -25,45 +25,45 @@ public class RestaurantOrderService {
 
     private RestaurantOrderRepo restaurantOrderRepo;
 
-    public OrderResponse saveOrder(RestaurantOrder restaurantOrder){
+    public OrderResponse saveOrder(RestaurantOrder restaurantOrder) {
 
         var order = new Order();
-        BeanUtils.copyProperties(restaurantOrder,order);
+        BeanUtils.copyProperties(restaurantOrder, order);
         var savedOrder = restaurantOrderRepo.save(order);
 
         var orderResponse = new OrderResponse();
         orderResponse.setOrderId(savedOrder.getId());
-        orderResponse.setOrderDetails("Hi " + restaurantOrder.getCustomerName().toUpperCase()+
-                ", your order for " +savedOrder.getMenuName()+ " will be delivered in 30 minutes");
+        orderResponse.setOrderDetails("Hi " + restaurantOrder.getCustomerName().toUpperCase() +
+                ", your order for " + savedOrder.getMenuName() + " will be delivered in 30 minutes");
         return orderResponse;
     }
 
-    public RestaurantResponse getAllOrders(){
+    public RestaurantResponse getAllOrders() {
         var allOrders = restaurantOrderRepo.findAll();
         var msg = allOrders.size() > 0 ?
-                "Successfully retrieve order details , total order : "+allOrders.size():
+                "Successfully retrieve order details , total order : " + allOrders.size() :
                 "No order found ";
-        var resResponse = buildResponse(allOrders,msg);
+        var resResponse = buildResponse(allOrders, msg);
         return resResponse;
 
     }
 
-    public RestaurantResponse getOrderForCustomer(String customerName){
+    public RestaurantResponse getOrderForCustomer(String customerName) {
         var allOrders = restaurantOrderRepo.findOrderByCustomerName(customerName);
         var msg = allOrders.size() > 0 ?
-                "Successfully retrieve order details , total order : "+allOrders.size():
-                "No order found for the customer :"+customerName;
-        var resResponse = buildResponse(allOrders,msg);
+                "Successfully retrieve order details , total order : " + allOrders.size() :
+                "No order found for the customer :" + customerName;
+        var resResponse = buildResponse(allOrders, msg);
         return resResponse;
     }
 
     public RestaurantResponse modifyOrder(RestaurantOrder restaurantOrder) {
 
         var orderOptional = restaurantOrderRepo.findById(Long.valueOf(restaurantOrder.getOrderId()));
-        if(orderOptional.isEmpty()){
-            log.info("No order found for order is {} ",restaurantOrder.getOrderId());
+        if (orderOptional.isEmpty()) {
+            log.info("No order found for order is {} ", restaurantOrder.getOrderId());
             return RestaurantResponse.builder()
-                    .message("No order found for orderId : "+restaurantOrder.getOrderId())
+                    .message("No order found for orderId : " + restaurantOrder.getOrderId())
                     .build();
         }
         var order = orderOptional.get();
@@ -72,10 +72,10 @@ public class RestaurantOrderService {
 
         var orderResponse = new OrderResponse();
         orderResponse.setOrderId(savedOrder.getId());
-        orderResponse.setOrderDetails("Hi " + restaurantOrder.getCustomerName().toUpperCase()+
-                ", your order for " +savedOrder.getMenuName()+ " will be delivered in 30 minutes");
+        orderResponse.setOrderDetails("Hi " + restaurantOrder.getCustomerName().toUpperCase() +
+                ", your order for " + savedOrder.getMenuName() + " will be delivered in 30 minutes");
 
-       return RestaurantResponse.builder()
+        return RestaurantResponse.builder()
                 .message("Order is updated successfully")
                 .orderDetails(orderResponse)
                 .build();
@@ -97,16 +97,27 @@ public class RestaurantOrderService {
                 .build();
     }
 
-    private RestaurantResponse buildResponse(List<Order> allOrders, String msg){
-        log.info("Total order {}",allOrders.size());
-        if(allOrders.size() > 0){
+    public String deleteOrder(Long orderId) {
+
+        log.info("Deleting order {}", orderId);
+        try {
+            restaurantOrderRepo.deleteById(orderId);
+        } catch (Exception ex) {
+            return "No order found with the orderId " + orderId;
+        }
+        return "order deleted successfully";
+    }
+
+    private RestaurantResponse buildResponse(List<Order> allOrders, String msg) {
+        log.info("Total order {}", allOrders.size());
+        if (allOrders.size() > 0) {
             var orderDetailsList = getOrderDetailsResponseList(allOrders);
             var restaurantResponse = RestaurantResponse.builder()
                     .message(msg)
                     .orderDetailsResponse(orderDetailsList)
                     .build();
             return restaurantResponse;
-        }else{
+        } else {
             return RestaurantResponse.builder()
                     .message(msg)
                     .build();
@@ -121,5 +132,6 @@ public class RestaurantOrderService {
             return orderDetailsResponse;
         }).collect(Collectors.toList());
     }
+
 
 }

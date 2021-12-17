@@ -43,5 +43,6 @@ public interface OrderApi {
     @ApiResponses(value = {@ApiResponse(code= 500, message = "Internal Server Error"),
             @ApiResponse(code= 200, message = "OK", response = String.class)})
     @DeleteMapping("/deleteOrder")
-    ResponseEntity<RestaurantResponse> deleteOrder(@RequestBody RestaurantOrder restaurantOrder);
+    ResponseEntity<String> deleteOrder(@RequestBody String orderId);
+
 }
