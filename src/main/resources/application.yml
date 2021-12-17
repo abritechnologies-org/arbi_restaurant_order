@@ -5,9 +5,9 @@ spring:
   application:
     name: abri-tech-restaurant-order
   datasource:
-    url: jdbc:mysql://localhost:3306/arbi-tech-restaurant-order
-    username: root
-    password: root
+    url: jdbc:mysql://mysql-62449-0.cloudclusters.net:10535/arbi-tech-restaurant-order
+    username: admin
+    password: hMyO7LE2
   jpa:
     properties:
       hibernate:
