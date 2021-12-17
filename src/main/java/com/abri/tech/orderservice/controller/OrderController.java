@@ -70,4 +70,17 @@ public class OrderController implements OrderApi {
         return  ResponseEntity.status(HttpStatus.OK).body(orderResponse);
     }
 
+    @Override
+    public ResponseEntity<String> deleteOrder(String orderId) {
+
+        log.info("We received request to delete order {} ",orderId);
+
+        if (StringUtils.isEmpty(orderId)){
+            log.info("No order id provided");
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        var response = restaurantOrderService.deleteOrder(Long.valueOf(orderId));
+        return  ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
 }

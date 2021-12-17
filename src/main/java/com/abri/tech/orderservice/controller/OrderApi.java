@@ -38,4 +38,10 @@ public interface OrderApi {
             @ApiResponse(code= 200, message = "OK", response = String.class)})
     @PutMapping("/modifyOrder")
     ResponseEntity<RestaurantResponse> modifyOrder(@RequestBody RestaurantOrder restaurantOrder);
+
+    @ApiOperation(value = "Delete order for a customer")
+    @ApiResponses(value = {@ApiResponse(code= 500, message = "Internal Server Error"),
+            @ApiResponse(code= 200, message = "OK", response = String.class)})
+    @DeleteMapping("/deleteOrder")
+    ResponseEntity<String> deleteOrder(@RequestBody String orderId);
 }
