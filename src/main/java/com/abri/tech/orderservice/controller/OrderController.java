@@ -26,6 +26,7 @@ public class OrderController implements OrderApi {
 
     public ResponseEntity<OrderResponse> createNewOrder(@RequestBody RestaurantOrder restaurantOrder) {
 
+        //Test modification
         log.info("We received order from {} for {} ",
                 restaurantOrder.getCustomerName(),
                 restaurantOrder.getMenuName());
