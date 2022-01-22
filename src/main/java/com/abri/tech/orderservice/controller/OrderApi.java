@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name="Restaurant order application")
-@RequestMapping("/restaurant/v2")
 @OpenAPIDefinition
 public interface OrderApi {
     @Operation(summary = "Create a new order for a customer")

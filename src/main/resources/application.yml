@@ -1,5 +1,7 @@
 server:
   port: 8020
+  servlet:
+    context-path: /restaurant/v2
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/arbi-tech-restaurant-order

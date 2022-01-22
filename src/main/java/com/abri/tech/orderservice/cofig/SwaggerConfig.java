@@ -12,7 +12,7 @@ public class SwaggerConfig {
         return GroupedOpenApi.builder()
                 .group("Restaurant-Order")
                 .packagesToScan("com.abri.tech.orderservice.controller")
-                .pathsToMatch("/restaurant/v2.*")
+                .pathsToMatch("/**")
                 .build();
     }
 }
