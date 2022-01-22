@@ -6,5 +6,13 @@ spring:
         service-id: arbi-tech-config-server
   application:
     name: arbi-tech-restaurant-order
-
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,refresh
+  endpoint:
+    env:
+      post:
+        enabled: true
 
