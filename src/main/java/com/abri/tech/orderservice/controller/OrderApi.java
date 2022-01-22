@@ -3,43 +3,48 @@ package com.abri.tech.orderservice.controller;
 import com.abri.tech.orderservice.dto.RestaurantOrder;
 import com.abri.tech.orderservice.response.OrderResponse;
 import com.abri.tech.orderservice.response.RestaurantResponse;
-import io.swagger.annotations.*;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name="Restaurant order application")
-@Api(tags = "Restaurant order application")
+@RequestMapping("/restaurant/v2")
+@OpenAPIDefinition
 public interface OrderApi {
-    @ApiOperation(value = "Create a new order for a customer")
-    @ApiResponses(value = {@ApiResponse(code= 500, message = "Internal Server Error"),
-            @ApiResponse(code= 200, message = "OK", response = String.class)})
+    @Operation(summary = "Create a new order for a customer")
+    @ApiResponses(value = {@ApiResponse(responseCode= "500", description = "Internal Server Error"),
+            @ApiResponse(responseCode= "200", description = "OK" )})
     @PostMapping("/createOrder")
     ResponseEntity<OrderResponse> createNewOrder(@RequestBody RestaurantOrder restaurantOrder);
 
-    @ApiOperation(value = "Get all orders placed in the restaurant")
-    @ApiResponses(value = {@ApiResponse(code= 500, message = "Internal Server Error"),
-            @ApiResponse(code= 200, message = "OK")})
+    @Operation(summary = "Get all orders placed in the restaurant")
+    @ApiResponses(value = {@ApiResponse(responseCode= "500", description = "Internal Server Error"),
+            @ApiResponse(responseCode= "200", description = "OK")})
     @GetMapping("/getAllOrder")
     ResponseEntity<RestaurantResponse> getAllOrder();
 
-    @ApiOperation(value = "Get latest order placed by customer")
-    @ApiResponses(value = {@ApiResponse(code= 500, message = "Internal Server Error"),
-            @ApiResponse(code= 200, message = "OK")})
+    @Operation(summary = "Get latest order placed by customer")
+    @ApiResponses(value = {@ApiResponse(responseCode= "500", description = "Internal Server Error"),
+            @ApiResponse(responseCode= "200", description = "OK")})
     @GetMapping("/getOrder")
     ResponseEntity<RestaurantResponse> getOrder(
-            @ApiParam(value = "Customer name who placed the order", type = "String", required = true)
+            @Parameter(description = "Customer name who placed the order",  required = true)
             @RequestParam(value= "customerName") String customerName);
 
-    @ApiOperation(value = "Modify order for a customer")
-    @ApiResponses(value = {@ApiResponse(code= 500, message = "Internal Server Error"),
-            @ApiResponse(code= 200, message = "OK", response = String.class)})
+    @Operation(summary = "Modify order for a customer")
+    @ApiResponses(value = {@ApiResponse(responseCode= "500", description = "Internal Server Error"),
+            @ApiResponse(responseCode= "200", description = "OK")})
     @PutMapping("/modifyOrder")
     ResponseEntity<RestaurantResponse> modifyOrder(@RequestBody RestaurantOrder restaurantOrder);
 
-    @ApiOperation(value = "Delete order for a customer")
-    @ApiResponses(value = {@ApiResponse(code= 500, message = "Internal Server Error"),
-            @ApiResponse(code= 200, message = "OK", response = String.class)})
+    @Operation(summary = "Delete order for a customer")
+    @ApiResponses(value = {@ApiResponse(responseCode= "500", description = "Internal Server Error"),
+            @ApiResponse(responseCode= "200", description = "OK")})
     @DeleteMapping("/deleteOrder")
     ResponseEntity<String> deleteOrder(@RequestBody String orderId);
 

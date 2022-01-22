@@ -1,6 +1,6 @@
 package com.abri.tech.orderservice.response;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,10 +11,10 @@ import java.util.List;
 @Getter
 @Builder
 public class RestaurantResponse {
-    @ApiModelProperty(notes = "Message related to order status")
+    @Schema(description = "Message related to order status")
     private String message;
-    @ApiModelProperty(notes = "All the orders placed by the customer")
+    @Schema(description = "All the orders placed by the customer")
     private List<OrderDetailsResponse> orderDetailsResponse;
-    @ApiModelProperty(notes = "Order updated or deleted by customer")
+    @Schema(description = "Order updated or deleted by customer")
     private OrderResponse orderDetails;
 }

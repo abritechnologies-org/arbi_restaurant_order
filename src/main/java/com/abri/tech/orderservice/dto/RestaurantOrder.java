@@ -1,24 +1,23 @@
 package com.abri.tech.orderservice.dto;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 @Setter
 @Getter
-@ApiModel(description = "The restaurant order")
+@Schema(description = "The restaurant order")
 @AllArgsConstructor
 @NoArgsConstructor
 public class RestaurantOrder {
 
     @NonNull
-    @ApiModelProperty(notes = "Order Id")
+    @Schema(description = "Order Id")
     private String orderId;
     @NonNull
-    @ApiModelProperty(notes = "Customer  Name")
+    @Schema(description ="Customer  Name")
     private String customerName;
     @NonNull
-    @ApiModelProperty(notes = "The food item that customer has ordered")
+    @Schema(description = "The food item that customer has ordered")
     private String menuName;
 
 }
