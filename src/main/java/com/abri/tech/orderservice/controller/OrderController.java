@@ -23,10 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController implements OrderApi {
 
     private RestaurantOrderService restaurantOrderService;
-
     public ResponseEntity<OrderResponse> createNewOrder(@RequestBody RestaurantOrder restaurantOrder) {
 
-        //Test modification
         log.info("We received order from {} for {} ",
                 restaurantOrder.getCustomerName(),
                 restaurantOrder.getMenuName());
