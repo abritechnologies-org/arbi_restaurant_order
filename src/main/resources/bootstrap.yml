@@ -6,3 +6,5 @@ spring:
         service-id: arbi-tech-config-server
   application:
     name: arbi-tech-restaurant-order
+  profiles:
+    active: dev
