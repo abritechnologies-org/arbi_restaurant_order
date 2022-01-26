@@ -12,6 +12,6 @@ import org.springframework.context.annotation.Configuration;
 @Setter
 public class OrderProperties {
 
-    @Value("${message:Hello default}")
+    @Value("${message:Hello}")
     public String message;
 }
