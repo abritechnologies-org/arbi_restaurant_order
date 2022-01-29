@@ -14,4 +14,8 @@ public class OrderProperties {
 
     @Value("${message:Hello}")
     public String message;
+
+    @Value("${restaurant.name:Restaurant}")
+    public String restaurantTag;
+
 }

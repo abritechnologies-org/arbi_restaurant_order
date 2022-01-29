@@ -29,7 +29,7 @@ public class OrderController implements OrderApi {
 
     @GetMapping("/welcome")
     public String getOrder(){
-        return orderProperties.getMessage();
+        return orderProperties.getRestaurantTag();
     }
 
     public ResponseEntity<OrderResponse> createNewOrder(@RequestBody RestaurantOrder restaurantOrder) {

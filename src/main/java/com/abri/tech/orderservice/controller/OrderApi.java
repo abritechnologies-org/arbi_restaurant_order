@@ -9,10 +9,14 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name="Restaurant order application")
+@Configuration
+@RefreshScope
+@Tag(name="${restaurant.name}")
 @OpenAPIDefinition
 public interface OrderApi {
     @Operation(summary = "Create a new order for a customer")
