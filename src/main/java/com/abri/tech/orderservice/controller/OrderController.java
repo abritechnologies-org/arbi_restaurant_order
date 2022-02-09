@@ -29,6 +29,7 @@ public class OrderController implements OrderApi {
     @GetMapping("/welcome")
     public String getOrder(@RequestHeader Map<String, String> headers){
         log.info("##### Header value is : {} #####",headers.get("arbi"));
+        log.info("##### Header value for Authorization is : {} #####",headers.get("authorization"));
         return orderProperties.getRestaurantTag();
     }
 
