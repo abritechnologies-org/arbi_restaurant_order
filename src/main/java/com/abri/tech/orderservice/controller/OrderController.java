@@ -12,10 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @AllArgsConstructor
@@ -28,7 +27,8 @@ public class OrderController implements OrderApi {
     OrderProperties orderProperties;
 
     @GetMapping("/welcome")
-    public String getOrder(){
+    public String getOrder(@RequestHeader Map<String, String> headers){
+        log.info("##### Header value is : {} #####",headers.get("arbi"));
         return orderProperties.getRestaurantTag();
     }
 

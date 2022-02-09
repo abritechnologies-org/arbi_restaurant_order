@@ -7,7 +7,7 @@ spring:
   application:
     name: arbi-tech-restaurant-order
   profiles:
-    active: fr
+    active: en
 management:
   endpoints:
     web:
