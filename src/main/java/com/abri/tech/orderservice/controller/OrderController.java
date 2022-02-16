@@ -27,10 +27,10 @@ public class OrderController implements OrderApi {
     OrderProperties orderProperties;
 
     @GetMapping("/welcome")
-    public String getOrder(@RequestHeader Map<String, String> headers){
+    public ResponseEntity<String> getOrder(@RequestHeader Map<String, String> headers){
         log.info("##### Header value is : {} #####",headers.get("arbi"));
         log.info("##### Header value for Authorization is : {} #####",headers.get("authorization"));
-        return orderProperties.getRestaurantTag();
+        return ResponseEntity.status(HttpStatus.OK).body(orderProperties.getRestaurantTag());
     }
 
     public ResponseEntity<OrderResponse> createNewOrder(@RequestBody RestaurantOrder restaurantOrder) {
