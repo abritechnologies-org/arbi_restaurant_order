@@ -3,8 +3,6 @@ server:
   servlet:
     context-path: /restaurant/v2
 spring:
-  application:
-    name: abri-tech-restaurant-order
   datasource:
     url: jdbc:mysql://localhost:3306/arbi-tech-restaurant-order
     username: root
@@ -19,3 +17,8 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka
+
+
+
+
+

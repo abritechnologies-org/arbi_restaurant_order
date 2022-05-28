@@ -1,5 +1,6 @@
 package com.abri.tech.orderservice.controller;
 
+import com.abri.tech.orderservice.constant.OrderProperties;
 import com.abri.tech.orderservice.dto.RestaurantOrder;
 import com.abri.tech.orderservice.response.OrderResponse;
 import com.abri.tech.orderservice.response.RestaurantResponse;
@@ -11,9 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @AllArgsConstructor
@@ -23,10 +24,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController implements OrderApi {
 
     private RestaurantOrderService restaurantOrderService;
+    OrderProperties orderProperties;
+
+    @GetMapping("/welcome")
+    public ResponseEntity<String> getOrder(@RequestHeader Map<String, String> headers){
+        log.info("##### Header value is : {} #####",headers.get("arbi"));
+        log.info("##### Header value for Authorization is : {} #####",headers.get("authorization"));
+        return ResponseEntity.status(HttpStatus.OK).body(orderProperties.getRestaurantTag());
+    }
 
     public ResponseEntity<OrderResponse> createNewOrder(@RequestBody RestaurantOrder restaurantOrder) {
 
-        //Test modification
         log.info("We received order from {} for {} ",
                 restaurantOrder.getCustomerName(),
                 restaurantOrder.getMenuName());
