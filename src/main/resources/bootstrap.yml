@@ -4,10 +4,23 @@ spring:
       discovery:
         enabled: true
         service-id: arbi-tech-config-server
+    stream:
+      function:
+        definition: publishNewOrderEvent
+      bindings:
+        publishNewOrderEvent-out-0:
+          destination: KitchenServiceQueue
+          group: restaurant
+      rabbitmq:
+        host: ${RMQ_HOSTNAME:localhost}
+        port: ${RMQ_PORT:5672}
+        username: ${RMQ_USERNAME:guest}
+        password: ${RMQ_PASSWORD:guest}
   application:
     name: arbi-tech-restaurant-order
   profiles:
     active: en
+
 management:
   endpoints:
     web:
