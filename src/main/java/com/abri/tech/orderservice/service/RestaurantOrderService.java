@@ -29,6 +29,7 @@ public class RestaurantOrderService {
 
         var order = new Order();
         BeanUtils.copyProperties(restaurantOrder, order);
+        order.setPublished(false);
         var savedOrder = restaurantOrderRepo.save(order);
 
         var orderResponse = new OrderResponse();

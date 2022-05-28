@@ -19,4 +19,6 @@ public class Order {
     private String customerName;
     @Column(name = "MENU_NAME")
     private String menuName;
+    @Column(name = "isPublished")
+    private boolean isPublished;
 }

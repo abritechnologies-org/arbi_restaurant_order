@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface RestaurantOrderRepo extends JpaRepository<Order,Long> {
     List<Order> findOrderByCustomerName(String customerName);
+    List<Order> findByPublishStatus(boolean isPublished);
 }
